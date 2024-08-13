@@ -1,0 +1,36 @@
+version: "1.0"
+services:
+  app:
+    build:
+      args:
+        user: eufirecalc
+        uid: 1000
+      context: docker-compose/app
+      dockerfile: Dockerfile
+    image: eufirecalc
+    container_name: eufirecalc-app
+    restart: no
+    working_dir: /var/www/
+    volumes:
+      - ./:/var/www
+    networks:
+      - eufirecalc
+
+  nginx:
+    image: nginx:alpine
+    container_name: eufirecalc-nginx
+    restart: unless-stopped
+    depends_on:
+      # It complains about php-fpm not being there if this is not running first
+      - app
+    ports:
+      - "8000:80"
+    volumes:
+      - ./:/var/www
+      - ./docker-compose/nginx:/etc/nginx/conf.d/
+    networks:
+      - eufirecalc
+
+networks:
+  eufirecalc:
+    driver: bridge
