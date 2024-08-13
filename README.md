@@ -1,66 +1,67 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Europe FI/RE Calculator
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+## For the devs
+This app is containerized and doesn't require any complex setup. Just make sure you have Docker installed.
 
-## About Laravel
+Just simply run `docker-compose up --build -d`
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+The project should now be running at `localhost:8000`
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Foreword
+This is just a simple quick project for the sake of having ANY code at all that can be publically shown as all of my other work can't be shown for \
+A. Legal reasons \
+B. It being many years old and not representing my skill-level or \
+C. Being garbage code I slapped together in a couple hours for myself as the only user.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+This site fell into category C itself. It used to just be a simple html/css/js front-end with no back-end at all and it was garbage code with no tests or anything. 
 
-## Learning Laravel
+Rewriting it into a project that actually has a back-end is cool and all but in the end this isn't really a site that'd need a back-end so it still feels slightly weird to do anyway and it will be quite the small project.
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## The Project
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+This site is a small tool to calculate and visualize historical odds of succeeding at FI/RE. (as well as some other little calculators surrounding FI/RE)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### What is FI/RE?
+FI/RE (often called Fire 🔥) stands for "Financial Independence / Retire Early" and refers to the mindset of saving up enough money early on in life so that you no longer rely on your job or other people to afford your basic needs in life (Financial Independence).\
+The main motivation for this for many people is the desire to quit working entirely or scale back to a part-time job way before their national retirement age (Retire Early).
 
-## Laravel Sponsors
+The main way FI/RE is achieved is through investing. The theory is that if you have enough money, you can live of the returns of your investment portfolio (made up of low risk Index Funds/ETFs and Bonds).
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+### How does this site help with FI/RE?
+There are 2 main questions when it comes to FI/RE.
+1. How much money do I need to afford my cost of living from stock returns? (this is often called your "number")
+2. How much longer do I have to work to get to my number?
 
-### Premium Partners
+These questions however don't have concrete answers, rather they can be answered with "it depends".\
+What does it depend on? The stock market.
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+If we are relying on the stock market to generate enough income to afford our cost of living, then the height of our number (how much money we need initially to be able to live off the returns) depends on how the stock market is doing.
 
-## Contributing
+It's easy to say "on average the S&P500 returns 11%/yr". 
+But that doesn't actually tell us much, because of the importance of Sequence of Returns.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+For example let's say we invest 10k/yr and the market returns an average of 11%/yr
 
-## Code of Conduct
+In the first case our market returns +30% -20% +23%\
+Invest 10k -> +30% = 13k -> Invest 10k = 23k -> -20% = 18.4k -> Invest 10k = 28.4k -> +23% = **34.93k**
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+In the second case our market returns +23% +30% -20%\
+Invest 10k -> +23% = 12.3k -> Invest 10k = 22.3k -> +30% = 28.99k -> Invest 10k = 38.99k -> -20% = **31.19k**
 
-## Security Vulnerabilities
+In just 3 years, while both are averaging 11%/yr, the difference in the final number is already quite big.\
+If we continue this for a lifetime of investing and withdrawing, you can start to see why a statement like "11%/yr" isn't helpful.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+**So, to get back to how this site helps**
 
-## License
+With this site you can visualize how the stock market has historically performed for your contribution and withdrawal strategy. And what your chance of having never ran out of money is, based on when in the sequence you started. On top of that it will let you see how other countries compare and other bits of info like how working shorter or longer would affect how much you can spend per year.
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This all together will help get a much more accurate answer to the questions mentioned above.
+
+Of course this is all still just an estimate. Past performance is not a guarantee for the future. But it can be a pretty good indicator and give hope to people dreading having to work until they're 70 or older.
+
+# Disclaimer
+This project is not aiming to give financial advice. Investing in the stock market is risky and you can lose some or all of your money.
+
+This project is purely for nerding out and getting more accurate estimates.\
+**Past returns are not indicative of future performance**\
+Even if historically your strategy would've had a 100% success rate, the stock market is always changing, always getting more unpredictable and nothing is stopping us from having a worse time than we've ever seen in history. Yes there are many more regulations since events like the great depression but those really wont save you in the case of a major crash.
