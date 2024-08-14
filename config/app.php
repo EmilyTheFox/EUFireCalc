@@ -1,4 +1,6 @@
 <?php
+use App\Providers\EUFireCalcServiceProvider;
+use Illuminate\Support\ServiceProvider;
 
 return [
 
@@ -104,6 +106,34 @@ return [
             explode(',', env('APP_PREVIOUS_KEYS', ''))
         ),
     ],
+    
+    /*
+    |--------------------------------------------------------------------------
+    | Autoloaded Service Providers
+    |--------------------------------------------------------------------------
+    |
+    | The service providers listed here will be automatically loaded on the
+    | request to your application. Feel free to add your own services to
+    | this array to grant expanded functionality to your applications.
+    |
+    */
+
+    'providers' => ServiceProvider::defaultProviders()->merge([
+        /*
+         * Package Service Providers...
+         */
+        Laravel\Tinker\TinkerServiceProvider::class,
+
+        /*
+         * Application Service Providers...
+         */
+        App\Providers\AppServiceProvider::class,
+
+        /**
+         * EUFireCalc Service Providers...
+         */
+        EUFireCalcServiceProvider::class,
+    ])->toArray(),
 
     /*
     |--------------------------------------------------------------------------

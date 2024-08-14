@@ -1,0 +1,46 @@
+{
+    "countries": [
+        {
+            "name": "Austria",
+            "capitalGains": 27.5,
+            "wealthTax": 0,
+            "specialRules": "In Austria you have to pre-pay taxes of differing amounts based on what kind of index fund you're in. Generally speaking you want a fund that doesn't constantly buy and sell shares like SWAP-based funds. Something like VWCE would do just fine but please get actual financial advice if you're in Austria."
+        },
+        {
+            "name": "Belgium",
+            "capitalGains": 0,
+            "wealthTax": 0,
+            "specialRules": "Instead of capital gains or a wealth tax there is tax on transactions between 0.12% and 1.32%. Even brokers get confused about which ETF uses which of these two so for safety just assume 1.32% and talk to a professional."
+        },
+        {
+            "name": "France",
+            "capitalGains": 30,
+            "wealthTax": 0,
+            "specialRules": "It's possible to tax your capital gains according to the normal income taxes brackets, which would be slightly more efficient in retirement."
+        },
+        {
+            "name": "Germany",
+            "capitalGains": 25,
+            "wealthTax": 0,
+            "specialRules": "In germany there is \"Vorabpauschale\" which means they tax your investment amount every year based on how much income it would've given you if you simply did risk-free investments. For 2024 that is '2.29% * 0.7 Multiplier * 25% Tax * Your Amount'"
+        },
+        {
+            "name": "Italy",
+            "capitalGains": 26,
+            "wealthTax": 0,
+            "specialRules": "Theres some wealth taxes based on assets held outside of Italy, but if you simply own property in Italy and stocks through an Italian broker you should be fine."
+        },
+        {
+            "name": "Netherlands",
+            "capitalGains": 0,
+            "wealthTax": 2.1744,
+            "specialRules": "First 57,000 euros of savings are tax-free. The Netherlands is planning to move to a Capital Gains focused tax system rather than wealth-taxing investments, however wealth tax on cash savings will likely stay."
+        },
+        {
+            "name": "Spain",
+            "capitalGains": 26,
+            "wealthTax": 0,
+            "specialRules": "Capital gains is progressive and goes as low as 19%. Spain also has some wealth taxes for individuals with wealth over 3 million but it's also just a massive mess of a system with local governments changing rules."
+        }
+    ]
+}
