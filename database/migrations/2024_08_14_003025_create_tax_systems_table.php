@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('name');
             $table->float('capital_gains');
             $table->float('wealth_tax');
-            $table->text('special_rules');
+            $table->text('special_rules')->nullable();
             $table->timestamps();
         });
     }

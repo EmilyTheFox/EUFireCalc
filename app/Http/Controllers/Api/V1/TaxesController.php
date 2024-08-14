@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers\Api\V1;
+
 use App\Http\Resources\TaxSystemCollection;
 use App\Models\TaxSystem;
 

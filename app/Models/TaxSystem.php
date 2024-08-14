@@ -11,13 +11,18 @@ use Illuminate\Database\Eloquent\Model;
  * @property float       $capital_gains
  * @property float       $wealth_tax
  * @property null|string $special_rules
- *
- * @method static Builder visible()
- * @method static Builder visibleWithUnlisted()
+ * @property null|int    $created_at
+ * @property null|int    $updated_at
  *
  * @mixin \Eloquent
  */
 class TaxSystem extends Model
 {
     use HasFactory;
+
+    protected $hidden = [
+        "id",
+        "created_at",
+        "updated_at"
+    ];
 }
