@@ -1,0 +1,76 @@
+@import "https://cdn.jsdelivr.net/npm/bulma@1.0.2/css/bulma.min.css";
+
+:root {
+  --primary-theme-color: #FF8200;
+  --secondary-theme-color: #ff9a00;
+
+  --bulma-primary: #FF8200;
+  --bulma-primary-h: 31;
+  --bulma-primary-s: 100%;
+  --bulma-primary-l: 50%;
+
+
+  /* --button-main-color: #009af8; */
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    --bulma-scheme-main: #f2f3f4;
+  }
+}
+[data-theme=light],
+.theme-light {
+  --bulma-scheme-main: #f2f3f4;
+}
+
+body {
+  text-align: center;
+}
+
+/* Navbar */
+.navbar {
+  border-bottom: 2px solid var(--secondary-theme-color);
+  
+  --bulma-navbar-burger-color: var(--bulma-primary);
+}
+
+.navbar-menu {
+  padding: 0 !important;
+}
+
+.nav-title {
+  font-weight: 800;
+  font-size: x-large;
+  background-image: linear-gradient(to right,#FF8200, #ff9a00, #ffc400);
+  color: transparent;
+  background-clip: text;
+}
+
+.navbar-item {
+  font-weight: 800;
+}
+
+a.navbar-item.is-active, a.navbar-item:hover {
+  color: white !important;
+  background-color: rgba(255, 132, 0, 0.75);
+}
+
+a.navbar-item:hover .nav-title {
+  background-image: none;
+  color: white;
+}
+/* Navbar End */
+
+/* Card start*/
+.card {
+  overflow: hidden;
+  background: ghostwhite;
+}
+
+.main-colored-text {
+  font-weight: 800;
+  background-image: linear-gradient(to right, #ff0000, #FF8200, #ff9a00, #ffce00, #ffe808);
+  color: transparent;
+  background-clip: text;
+}
+
