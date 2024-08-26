@@ -30,10 +30,10 @@ class StockPriceDataSeeder extends Seeder
         
         for ($i = 0; $i < sizeof($json); $i++) {
             DB::table('stock_price_data')->insert([
-                "year"=> $json[$i]["year"],
-                "month"=> $json[$i]["month"],
-                "price"=> $json[$i]["price"],
-                "dividend"=> $json[$i]["dividend"],
+                "year"     => $json[$i]["year"],
+                "month"    => $json[$i]["month"],
+                "price"    => $json[$i]["price"],
+                "dividend" => $json[$i]["dividend"] / 12,
             ]);
         }
     }
