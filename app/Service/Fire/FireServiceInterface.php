@@ -2,7 +2,9 @@
 
 namespace App\Service\Fire;
 
+use App\DataTransferObjects\FireSimulation\FireSimulationData;
+
 interface FireServiceInterface
 {
-    public function calculateFireCharts(array $validated): array;
+    public function calculateFireCharts(FireSimulationData $fireSimulationData): array;
 }

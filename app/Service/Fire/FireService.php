@@ -2,9 +2,14 @@
 
 namespace App\Service\Fire;
 
+use App\DataTransferObjects\FireSimulation\ContributionData;
+use App\DataTransferObjects\FireSimulation\FireSimulationData;
+use App\DataTransferObjects\FireSimulation\WithdrawalData;
+use App\Enums\FrequencyEnum;
+use App\Enums\IncreaseFrequencyEnum;
+use App\Enums\TaxSystemEnum;
 use App\Service\Fire\FireServiceInterface;
 use Illuminate\Support\Facades\DB;
-use InvalidArgumentException;
 
 class FireService implements FireServiceInterface
 {
@@ -27,24 +32,27 @@ class FireService implements FireServiceInterface
     /**
      * Backtest a given FIRE strategy against historic stock market data
      * 
-     * @param array $settings The settings with which to do the backtest
+     * @param FireSimulationData $fireSimulationData The settings with which to do the backtest
      * 
      * @return array
      */
-    public function calculateFireCharts(array $settings): array
+    public function calculateFireCharts(FireSimulationData $fireSimulationData): array
     {
-        $firstRun = $settings['dataSince'];
-        $lastRun = $firstRun + intdiv(sizeof($this->sharePriceData), 12) - ($settings['endAge'] - $settings['startAge']);
+        $yearsOfData = intdiv(sizeof($this->sharePriceData), 12);
+        $lastYearOfData = 1871 + $yearsOfData; // TODO: Gotta get rid of this hardcoded 1871, same for in the request, maybe some env var we set on boot? and on seeding so that doesnt desync it?
+
+        $firstRun = $fireSimulationData->dataSince;
+        $lastRun = $lastYearOfData - ($fireSimulationData->endAge - $fireSimulationData->startAge);
 
         $runs = [];
         for ($i = $firstRun; $i <= $lastRun; $i++) {
-            $runs[$i] = $this->simulateFireStrategy($i, $settings, false);
+            $runs[$i] = $this->simulateFireStrategy($i, $fireSimulationData, false);
         }
 
-        $comparisonRun = $this->simulateFireStrategy($lastRun, $settings, true);
+        $comparisonRun = $this->simulateFireStrategy($lastRun, $fireSimulationData, true);
 
         return [
-            'settings'      => $settings, 
+            'settings'      => $fireSimulationData, 
             'runs'          => $runs,
             'comparisonRun' => $comparisonRun,
             'stockData'     => $this->sharePriceData,
@@ -94,14 +102,14 @@ class FireService implements FireServiceInterface
      * Simulate how a strategy holds up if it started on january 1st of the given year
      * 
      * @param int $startYear 
-     * @param array $settings
+     * @param FireSimulationData $fireSimulationData
      * 
      * @return array
      */
-    private function simulateFireStrategy(int $startYear, array $settings, bool $useComparisonRate): array
+    private function simulateFireStrategy(int $startYear, FireSimulationData $fireSimulationData, bool $useComparisonRate): array
     {
-        $runFailed = false;
-        $currentAge = $settings['startAge'];
+        // $runFailed = false;
+        $currentAge = $fireSimulationData->startAge;
 
         // Our array of all the batches of shares we've ever bought both with dividends and with cash
         // We can then match tax lots based on either First In First Out or First In Last Out (FIFO & FILO)
@@ -109,46 +117,50 @@ class FireService implements FireServiceInterface
 
         $ownedCash = 0; // TODO: Add cash buffer setting
 
-        $totalContributedNominal = $settings['startBalance'];
-        $totalContributedInflationAdjusted = $settings['startBalance'];
+        $totalContributedNominal = $fireSimulationData->startBalance;
+        $totalContributedInflationAdjusted = $fireSimulationData->startBalance;
         $totalWithdrawnNominal = 0;
         $totalWithdrawnInflationAdjusted = 0;
 
-        $startOfYearValue = $settings['startBalance']; // For the netherlands which taxes you based on fictional returns assumed over the total on jan 1st. The Netherlands suck... Tax reform in 2026 though!
+        $startOfYearValue = $fireSimulationData->startBalance; // For the netherlands which taxes you based on fictional returns assumed over the total on jan 1st. The Netherlands suck... Tax reform in 2026 though!
         $capitalLossCredit = 0; // For tax systems that use Capital Loss Carryforward. Aka being able to offset today's capital gains with last year's capital loss.
 
         $inflationMultiplier = 1; // inflation of 1.0 means no inflation, 0.5 means we deflated by half, 2 means everything is now twice as expensive.
 
-        $yearlyContributions = [$settings['startBalance']];
-        $yearlyNetWorth = [$settings['startBalance']];
+        $yearlyContributions = [$fireSimulationData->startBalance];
+        $yearlyNetWorth = [$fireSimulationData->startBalance];
 
         $currentMonth = sprintf('%d-%d', $startYear, 1);
-        $this->investStartingBalance($currentMonth, $ownedShares, $settings['startBalance'], $settings['taxSystem']);
+        $this->investStartingBalance($currentMonth, $ownedShares, $fireSimulationData->startBalance, $fireSimulationData->taxSystem);
 
         // Start on month 0, go for as many months as there are in the years we are simulating
         // So for 10 years its start on month 0, keep going till month 119 (aka 1-120 if not 0 indexed)
-        $amountOfMonthsToSimulate = ($settings['endAge'] - $settings['startAge']) * 12;
+        $amountOfMonthsToSimulate = ($fireSimulationData->endAge - $fireSimulationData->startAge) * 12;
         for ($month = 0; $month < $amountOfMonthsToSimulate; $month++) {
-            if ($runFailed) {
-                if ($month % 12 === 0) {
-                    array_push($yearlyNetWorth, 0);
-                    array_push($yearlyContributions, $yearlyContributions[sizeof($yearlyContributions) - 1]);
-                }
 
-                continue;
-            }
+            // TBH this should just be done better when we hit this, like just find how many years are left and fill the array
+            // if ($runFailed) {
+            //     if ($month % 12 === 0) {
+            //         array_push($yearlyNetWorth, 0);
+            //         array_push($yearlyContributions, $yearlyContributions[sizeof($yearlyContributions) - 1]);
+            //     }
 
-            $currentAge = $settings['startAge'] + ($month / 12);
+            //     continue;
+            // }
+
+            $currentAge = $fireSimulationData->startAge + ($month / 12);
             $currentMonth = sprintf('%d-%d', intdiv($month, 12) + $startYear, $month % 12 + 1);
 
             // Reinvest Dividends
-            $this->reinvestDividends($currentMonth, $ownedShares, $settings['taxSystem']);
+            $this->reinvestDividends($currentMonth, $ownedShares, $fireSimulationData->taxSystem);
 
             // Invest Contribution
-            $this->investContributions($currentMonth, $ownedShares, $currentAge, $month, $inflationMultiplier, $settings['contributions'], $settings['taxSystem']);
+            $this->investContributions($currentMonth, $ownedShares, $currentAge, $month, $inflationMultiplier, $fireSimulationData->contributions, $fireSimulationData->taxSystem);
 
             // Handle Withdrawal
-            $this->handleWithdrawals($currentMonth, $ownedShares, $currentAge, $month, $inflationMultiplier, $settings['withdrawals'], $settings['taxSystem']);
+            if ($fireSimulationData->withdrawals !== null) {
+                $this->handleWithdrawals($currentMonth, $ownedShares, $currentAge, $month, $inflationMultiplier, $fireSimulationData->withdrawals, $fireSimulationData->taxSystem);
+            }
 
             // December, do end of year things
             if ($month % 12 === 11) {
@@ -159,13 +171,13 @@ class FireService implements FireServiceInterface
         return $yearlyNetWorth;
     }
 
-    private function investStartingBalance(string $monthDate, array &$ownedShares, float $startBalance, string $taxSystem): void {
+    private function investStartingBalance(string $monthDate, array &$ownedShares, float $startBalance, TaxSystemEnum $taxSystem): void {
         // TODO: Ignore tax system & fees for now, thats a later ticket, normally we'd tax for certain countries (Belgium) and handle fees
 
         array_push($ownedShares, $this->buyShares($monthDate, $startBalance));
     }
 
-    private function reinvestDividends(string $monthDate, array &$ownedShares, string $taxSystem): void {
+    private function reinvestDividends(string $monthDate, array &$ownedShares, TaxSystemEnum $taxSystem): void {
         $dividendPayout = $this->getDividendPayout($monthDate, $ownedShares);
 
         if ($dividendPayout === 0.0) {
@@ -177,39 +189,52 @@ class FireService implements FireServiceInterface
         array_push($ownedShares, $this->buyShares($monthDate, $dividendPayout));
     }
 
-    private function investContributions(string $monthDate, array &$ownedShares, float $currentAge, int $month, float $inflationMultiplier, array &$contributionSettings, string $taxSystem): void {
+    /**
+     * Buy shares according to given contributionSettings
+     *
+     * @param string             $monthDate
+     * @param array              $ownedShares
+     * @param float              $currentAge
+     * @param int                $month
+     * @param float              $inflationMultiplier
+     * @param ContributionData[] $contributionSettings
+     * @param TaxSystemEnum      $taxSystem
+     * 
+     * @return void
+     */
+    private function investContributions(string $monthDate, array &$ownedShares, float $currentAge, int $month, float $inflationMultiplier, array &$contributionSettings, TaxSystemEnum $taxSystem): void {
         $investmentAmount = 0.0;
 
         for ($i = 0; $i < sizeof($contributionSettings); $i++) {
             $contributionSetting = &$contributionSettings[$i];
 
             // One-Off contribution
-            if ($contributionSetting['frequency'] === 'One-Off') {
-                if ($currentAge === $contributionSetting['startAge']) {
-                    $investmentAmount += $contributionSetting['amount'] * $inflationMultiplier;
+            if ($contributionSetting->frequency === FrequencyEnum::ONE_OFF) {
+                if ($currentAge === $contributionSetting->startAge) {
+                    $investmentAmount += $contributionSetting->amount * $inflationMultiplier;
                 }
                 continue;
             }
 
             // Periodic contributions
-            if ($currentAge >= $contributionSetting['startAge'] && $currentAge < $contributionSetting['endAge']) {
+            if ($currentAge >= $contributionSetting->startAge && $currentAge < $contributionSetting->endAge) {
                 // Handle periodic investment amount
-                if ($contributionSetting['frequency'] === 'Monthly'
-                    || ($contributionSetting['frequency'] === 'Quaterly' && ($month % 3 === 0))
-                    || ($contributionSetting['frequency'] === 'Yearly' && ($month % 12 === 0))
+                if ($contributionSetting->frequency === FrequencyEnum::MONTHLY
+                    || ($contributionSetting->frequency === FrequencyEnum::QUARTERLY && ($month % 3 === 0))
+                    || ($contributionSetting->frequency === FrequencyEnum::YEARLY && ($month % 12 === 0))
                 ) {
-                    $matchInflation = (isset($contributionSetting['increaseFrequency']) && $contributionSetting['increaseFrequency'] === 'Match Inflation');
+                    $matchInflation = $contributionSetting->increaseFrequency === IncreaseFrequencyEnum::MATCH_INFLATION;
 
-                    $investmentAmount += $contributionSetting['amount'] * ($matchInflation ? $inflationMultiplier : 1);
+                    $investmentAmount += $contributionSetting->amount * ($matchInflation ? $inflationMultiplier : 1);
                 }  
 
                 // Handle periodic amount increase
-                if (isset($contributionSetting['increaseFrequency'])) {
-                    if ($contributionSetting['increaseFrequency'] === 'Monthly'
-                        || ($contributionSetting['increaseFrequency'] === 'Quaterly' && ($month % 3 === 0))
-                        || ($contributionSetting['increaseFrequency'] === 'Yearly' && ($month % 12 === 0))
+                if ($contributionSetting->increaseFrequency !== null) {
+                    if ($contributionSetting->increaseFrequency === IncreaseFrequencyEnum::MONTHLY
+                        || ($contributionSetting->increaseFrequency === IncreaseFrequencyEnum::QUARTERLY && ($month % 3 === 0))
+                        || ($contributionSetting->increaseFrequency === IncreaseFrequencyEnum::YEARLY && ($month % 12 === 0))
                     ) {
-                        $contributionSetting['amount'] += $contributionSetting['increaseAmount'];
+                        $contributionSetting->amount += $contributionSetting->increaseAmount; // I dont really like that we are editing a value in our DTO, but its the easiest way to do compounding changes for now
                     }
                 }              
             }
@@ -224,7 +249,20 @@ class FireService implements FireServiceInterface
         array_push($ownedShares, $this->buyShares($monthDate, $investmentAmount));
     }
 
-    private function handleWithdrawals(string $monthDate, array &$ownedShares, float $currentAge, int $month, float $inflationMultiplier, &$withdrawalSettings, string $taxSystem) {
+    /**
+     * Sell shares according to given withdrawalSettings
+     * 
+     * @param string           $monthDate
+     * @param array            $ownedShares
+     * @param float            $currentAge
+     * @param int              $month
+     * @param float            $inflationMultiplier
+     * @param WithdrawalData[] $withdrawalSettings
+     * @param TaxSystemEnum    $taxSystem
+     * 
+     * @return void
+     */
+    private function handleWithdrawals(string $monthDate, array &$ownedShares, float $currentAge, int $month, float $inflationMultiplier, array &$withdrawalSettings, TaxSystemEnum $taxSystem) {
 
     }
 

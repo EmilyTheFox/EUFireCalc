@@ -22,14 +22,14 @@ class FireRequest extends APIFormRequest
     public function rules(): array
     {
         return [
-            'startAge'        => 'required|integer|min:0|max:119',
-            'endAge'          => 'required|integer|min:1|max:120',
-            'realInflation'   => 'required|boolean',
-            'staticInflation' => 'required_if:realInflation,false|decimal:0,2|min:0|max:10',
-            'flatReturns'     => 'decimal:0,2|min:0.1|max:50',
-            'taxSystem'       => ['required', 'string', 'bail', new IsTaxSystemRule(['allowNone' => true])],
-            'dataSince'       => 'required|integer|min:1871',
-            'startBalance'    => 'required|integer|min:0|max_digits:15',
+            'startAge'           => 'required|integer|min:0|max:119',
+            'endAge'             => 'required|integer|min:1|max:120',
+            'useRealInflation'   => 'required|boolean',
+            'staticInflation'    => 'required_if:realInflation,false|decimal:0,2|min:0|max:10',
+            'flatReturns'        => 'decimal:0,2|min:0.1|max:50',
+            'taxSystem'          => ['required', 'string', 'bail', new IsTaxSystemRule(['allowNone' => true])],
+            'dataSince'          => 'required|integer|min:1871',
+            'startBalance'       => 'required|integer|min:0|max_digits:15',
 
             'contributions' => 'required|array|min:1',
 
@@ -40,7 +40,7 @@ class FireRequest extends APIFormRequest
             'contributions.*.increaseFrequency' => 'required_unless:contributions.*.frequency,One-Off|string|in:Never,Monthly,Quarterly,Yearly,Match Inflation|exclude_if:contributions.*.frequency,One-Off',
             'contributions.*.increaseAmount'    => [new RequiresIncreaseAmountRule(), 'exclude_if:contributions.*.frequency,One-Off', 'exclude_if:contributions.*.increaseFrequency,Never', 'exclude_if:contributions.*.increaseFrequency,Match Inflation'],
 
-            'withdrawals' => 'present|array|min:1',
+            'withdrawals' => 'sometimes|array|min:1',
 
             'withdrawals.*.startAge'          => 'required|integer|min:0|max:119',
             'withdrawals.*.endAge'            => 'required_unless:withdrawals.*.frequency,One-Off|integer|min:1|max:120|exclude_if:withdrawals.*.frequency,One-Off',

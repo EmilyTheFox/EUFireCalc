@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Fire;
 
+use App\DataTransferObjects\FireSimulation\FireSimulationData;
+use App\DataTransferObjects\FireSimulation\TaxSystemEnum;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Fire\FireRequest;
 use App\Service\Fire\FireServiceInterface;
@@ -15,6 +17,8 @@ class FireController extends Controller
      */
     public function calculateFireCharts(FireRequest $fireRequest, FireServiceInterface $fireService): array
     {
-        return $fireService->calculateFireCharts($fireRequest->validated());
+        $fireSimulationData = FireSimulationData::from($fireRequest->validated());
+
+        return $fireService->calculateFireCharts($fireSimulationData);
     }
 }
