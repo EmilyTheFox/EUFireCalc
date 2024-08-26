@@ -25,7 +25,7 @@ class FireRequest extends APIFormRequest
             'startAge'               => 'required|integer|min:0|max:119',
             'endAge'                 => 'required|integer|min:1|max:120',
             'useRealInflation'       => 'required|boolean',
-            'staticInflation'        => 'required_if:realInflation,false|decimal:0,2|min:0|max:10',
+            'staticInflation'        => 'required_if:useRealInflation,false|decimal:0,2|min:0|max:10|exclude_if:useRealInflation,true',
             'flatReturns'            => 'decimal:0,2|min:0.1|max:50',
             'taxSystem'              => ['required', 'string', 'bail', new IsTaxSystemRule(['allowNone' => true])],
             'taxLotMatchingStrategy' => 'required|string|in:Fifo,Lifo',

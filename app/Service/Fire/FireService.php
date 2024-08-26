@@ -58,10 +58,25 @@ class FireService implements FireServiceInterface
 
         $runs = [];
         for ($i = $firstRun; $i <= $lastRun; $i++) {
-            $runs[$i] = $this->simulateFireStrategy($i, $fireSimulationData, false);
+            $runs[$i] = $this->simulateFireStrategy($i, $fireSimulationData);
         }
 
-        $comparisonRun = $this->simulateFireStrategy($lastRun, $fireSimulationData, true);
+        // Very bandaid fixy but idc tbh
+        // replace all stock return data with our given flat returns instead
+        // and then run the simulation one more time
+        $sharePriceDataKeys = array_keys($this->sharePriceData);
+        $theoraticalSharePrice = 1.0;
+        for ($i = 0; $i < sizeof($sharePriceDataKeys); $i++) {
+            $this->sharePriceData[$sharePriceDataKeys[$i]] = $theoraticalSharePrice;
+            $theoraticalSharePrice *= pow(1 + $fireSimulationData->flatReturns / 100, 1/12);
+        }
+
+        $dividendYieldDataKeys = array_keys($this->dividendYieldData);
+        $theoraticalDividendYield = 0;
+        for ($i = 0; $i < sizeof($dividendYieldDataKeys); $i++) {
+            $this->dividendYieldData[$dividendYieldDataKeys[$i]] = $theoraticalDividendYield;
+        }
+        $comparisonRun = $this->simulateFireStrategy($lastRun, $fireSimulationData);
 
         return [
             'settings'      => $fireSimulationData, 
@@ -131,7 +146,7 @@ class FireService implements FireServiceInterface
      * 
      * @return array
      */
-    private function simulateFireStrategy(int $startYear, FireSimulationData $fireSimulationData, bool $useComparisonRate): array
+    private function simulateFireStrategy(int $startYear, FireSimulationData $fireSimulationData): array
     {
         $currentAge = $fireSimulationData->startAge;
 
@@ -202,7 +217,7 @@ class FireService implements FireServiceInterface
                 }
             }
 
-            // December, do end of year things
+            // End of year, do all the end of year things
             if ($month % 12 === 11) {
                 // adjust inflation
                 if ($fireSimulationData->useRealInflation) {
@@ -211,6 +226,13 @@ class FireService implements FireServiceInterface
                     $inflationMultiplier *= 1 + $fireSimulationData->staticInflation / 100;
                 }
 
+                // Do all the math with the share price of next month because we want to pretend its jan 1st 12:00am
+                $monthDate = sprintf('%d-%d', $currentYear + 1, 1);
+
+                // Update start of year value
+                $startOfYearValue = $this->getCurrentSharePrice($monthDate) * $this->getTotalOwnedShares($ownedShares);
+
+                // Append all our arrays of yearly values
                 array_push($yearlyNetWorthNominal, floor($this->getCurrentSharePrice($monthDate) * $this->getTotalOwnedShares($ownedShares))); // handle inflation adjustment later
                 array_push($yearlyNetWorthInflationAdjusted, floor($this->getCurrentSharePrice($monthDate) * $this->getTotalOwnedShares($ownedShares) / $inflationMultiplier)); // handle inflation adjustment later
 
