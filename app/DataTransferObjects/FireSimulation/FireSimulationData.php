@@ -2,6 +2,7 @@
 
 namespace App\DataTransferObjects\FireSimulation;
 
+use App\Enums\TaxLotMatchingStrategyEnum;
 use Spatie\LaravelData\Data;
 use App\Enums\TaxSystemEnum;
 
@@ -18,6 +19,7 @@ class FireSimulationData extends Data
           public ?float $staticInflation,
           public ?float $flatReturns,
           public TaxSystemEnum $taxSystem,
+          public TaxLotMatchingStrategyEnum $taxLotMatchingStrategy,
           public int $dataSince,
           public int $startBalance,
 

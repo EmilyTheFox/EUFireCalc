@@ -8,5 +8,4 @@ enum IncreaseFrequencyEnum: string
     case MONTHLY = 'Monthly';
     case QUARTERLY = 'Quarterly';
     case YEARLY = 'Yearly';
-    case MATCH_INFLATION = 'Match Inflation';
 }
