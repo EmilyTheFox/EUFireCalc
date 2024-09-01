@@ -106,8 +106,6 @@ Purpose:
 Request:
 {
     "startAge": number, // 22
-    "coastAge": number, // 30
-    "fireAge": number, // 35
     "endAge": number, // 90
     "realInflation": boolean, // true
     "staticInflation": number, // 2.5%, only required if realInflation is false

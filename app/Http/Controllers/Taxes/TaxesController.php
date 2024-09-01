@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Api\V1;
+namespace App\Http\Controllers\Taxes;
 
+use App\Http\Controllers\Controller;
 use App\Http\Resources\TaxSystemCollection;
-use App\Models\TaxSystem;
+use App\Models\Taxes\TaxSystem;
 
-class TaxesController
+class TaxesController extends Controller
 {
     /**
      * Get a list of countries and their capital gains, wealth tax & special rules
