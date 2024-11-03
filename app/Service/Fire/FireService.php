@@ -79,11 +79,8 @@ class FireService implements FireServiceInterface
         $comparisonRun = $this->simulateFireStrategy($lastRun, $fireSimulationData);
 
         return [
-            'settings'      => $fireSimulationData, 
             'runs'          => $runs,
-            'comparisonRun' => $comparisonRun,
-            'stockData'     => $this->sharePriceData,
-            'dividendData'  => $this->dividendYieldData
+            'comparisonRun' => $comparisonRun
         ];
     }
 
