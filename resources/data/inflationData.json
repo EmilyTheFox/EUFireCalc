@@ -1,0 +1,620 @@
+{
+    "data": [
+        {
+            "year": 1871,
+            "inflation": -6.87
+        },
+        {
+            "year": 1872,
+            "inflation": 0
+        },
+        {
+            "year": 1873,
+            "inflation": -1.64
+        },
+        {
+            "year": 1874,
+            "inflation": -5.003
+        },
+        {
+            "year": 1875,
+            "inflation": -3.511
+        },
+        {
+            "year": 1876,
+            "inflation": -2.729
+        },
+        {
+            "year": 1877,
+            "inflation": -1.859
+        },
+        {
+            "year": 1878,
+            "inflation": -4.764
+        },
+        {
+            "year": 1879,
+            "inflation": 0
+        },
+        {
+            "year": 1880,
+            "inflation": 2
+        },
+        {
+            "year": 1881,
+            "inflation": 0
+        },
+        {
+            "year": 1882,
+            "inflation": 0
+        },
+        {
+            "year": 1883,
+            "inflation": -0.981
+        },
+        {
+            "year": 1884,
+            "inflation": -2.972
+        },
+        {
+            "year": 1885,
+            "inflation": -1.021
+        },
+        {
+            "year": 1886,
+            "inflation": -3.094
+        },
+        {
+            "year": 1887,
+            "inflation": 1.064
+        },
+        {
+            "year": 1888,
+            "inflation": 0
+        },
+        {
+            "year": 1889,
+            "inflation": -3.16
+        },
+        {
+            "year": 1890,
+            "inflation": -1.088
+        },
+        {
+            "year": 1891,
+            "inflation": 0
+        },
+        {
+            "year": 1892,
+            "inflation": 0
+        },
+        {
+            "year": 1893,
+            "inflation": -1.1
+        },
+        {
+            "year": 1894,
+            "inflation": -4.447
+        },
+        {
+            "year": 1895,
+            "inflation": -2.327
+        },
+        {
+            "year": 1896,
+            "inflation": 0
+        },
+        {
+            "year": 1897,
+            "inflation": -1.191
+        },
+        {
+            "year": 1898,
+            "inflation": 0
+        },
+        {
+            "year": 1899,
+            "inflation": 0
+        },
+        {
+            "year": 1900,
+            "inflation": 1.205
+        },
+        {
+            "year": 1901,
+            "inflation": 1.19
+        },
+        {
+            "year": 1902,
+            "inflation": 1.176
+        },
+        {
+            "year": 1903,
+            "inflation": 2.326
+        },
+        {
+            "year": 1904,
+            "inflation": 1.136
+        },
+        {
+            "year": 1905,
+            "inflation": -1.125
+        },
+        {
+            "year": 1906,
+            "inflation": 2.273
+        },
+        {
+            "year": 1907,
+            "inflation": 4.446
+        },
+        {
+            "year": 1908,
+            "inflation": -2.129
+        },
+        {
+            "year": 1909,
+            "inflation": -1.088
+        },
+        {
+            "year": 1910,
+            "inflation": 4.397
+        },
+        {
+            "year": 1911,
+            "inflation": 0
+        },
+        {
+            "year": 1912,
+            "inflation": 2.106
+        },
+        {
+            "year": 1913,
+            "inflation": 2.062
+        },
+        {
+            "year": 1914,
+            "inflation": 1.01
+        },
+        {
+            "year": 1915,
+            "inflation": 1
+        },
+        {
+            "year": 1916,
+            "inflation": 7.911
+        },
+        {
+            "year": 1917,
+            "inflation": 17.438
+        },
+        {
+            "year": 1918,
+            "inflation": 17.966
+        },
+        {
+            "year": 1919,
+            "inflation": 14.567
+        },
+        {
+            "year": 1920,
+            "inflation": 15.606
+        },
+        {
+            "year": 1921,
+            "inflation": -10.499
+        },
+        {
+            "year": 1922,
+            "inflation": -6.148
+        },
+        {
+            "year": 1923,
+            "inflation": 1.786
+        },
+        {
+            "year": 1924,
+            "inflation": 0
+        },
+        {
+            "year": 1925,
+            "inflation": 2.34
+        },
+        {
+            "year": 1926,
+            "inflation": 1.143
+        },
+        {
+            "year": 1927,
+            "inflation": -1.696
+        },
+        {
+            "year": 1928,
+            "inflation": -1.725
+        },
+        {
+            "year": 1929,
+            "inflation": 0
+        },
+        {
+            "year": 1930,
+            "inflation": -2.334
+        },
+        {
+            "year": 1931,
+            "inflation": -8.986
+        },
+        {
+            "year": 1932,
+            "inflation": -9.865
+        },
+        {
+            "year": 1933,
+            "inflation": -5.112
+        },
+        {
+            "year": 1934,
+            "inflation": 3.078
+        },
+        {
+            "year": 1935,
+            "inflation": 2.239
+        },
+        {
+            "year": 1936,
+            "inflation": 1.451
+        },
+        {
+            "year": 1937,
+            "inflation": 3.598
+        },
+        {
+            "year": 1938,
+            "inflation": -2.085
+        },
+        {
+            "year": 1939,
+            "inflation": -1.42
+        },
+        {
+            "year": 1940,
+            "inflation": 0.719
+        },
+        {
+            "year": 1941,
+            "inflation": 5.002
+        },
+        {
+            "year": 1942,
+            "inflation": 10.888
+        },
+        {
+            "year": 1943,
+            "inflation": 6.129
+        },
+        {
+            "year": 1944,
+            "inflation": 1.734
+        },
+        {
+            "year": 1945,
+            "inflation": 2.273
+        },
+        {
+            "year": 1946,
+            "inflation": 8.336
+        },
+        {
+            "year": 1947,
+            "inflation": 14.358
+        },
+        {
+            "year": 1948,
+            "inflation": 8.069
+        },
+        {
+            "year": 1949,
+            "inflation": -1.246
+        },
+        {
+            "year": 1950,
+            "inflation": 1.261
+        },
+        {
+            "year": 1951,
+            "inflation": 7.881
+        },
+        {
+            "year": 1952,
+            "inflation": 1.923
+        },
+        {
+            "year": 1953,
+            "inflation": 0.755
+        },
+        {
+            "year": 1954,
+            "inflation": 0.749
+        },
+        {
+            "year": 1955,
+            "inflation": -0.372
+        },
+        {
+            "year": 1956,
+            "inflation": 1.493
+        },
+        {
+            "year": 1957,
+            "inflation": 3.31
+        },
+        {
+            "year": 1958,
+            "inflation": 2.848
+        },
+        {
+            "year": 1959,
+            "inflation": 0.688
+        },
+        {
+            "year": 1960,
+            "inflation": 1.718
+        },
+        {
+            "year": 1961,
+            "inflation": 1.013
+        },
+        {
+            "year": 1962,
+            "inflation": 1.003
+        },
+        {
+            "year": 1963,
+            "inflation": 1.325
+        },
+        {
+            "year": 1964,
+            "inflation": 1.307
+        },
+        {
+            "year": 1965,
+            "inflation": 1.613
+        },
+        {
+            "year": 1966,
+            "inflation": 2.854
+        },
+        {
+            "year": 1967,
+            "inflation": 3.087
+        },
+        {
+            "year": 1968,
+            "inflation": 4.193
+        },
+        {
+            "year": 1969,
+            "inflation": 5.458
+        },
+        {
+            "year": 1970,
+            "inflation": 5.721
+        },
+        {
+            "year": 1971,
+            "inflation": 4.383
+        },
+        {
+            "year": 1972,
+            "inflation": 3.208
+        },
+        {
+            "year": 1973,
+            "inflation": 6.219
+        },
+        {
+            "year": 1974,
+            "inflation": 11.037
+        },
+        {
+            "year": 1975,
+            "inflation": 9.126
+        },
+        {
+            "year": 1976,
+            "inflation": 5.762
+        },
+        {
+            "year": 1977,
+            "inflation": 6.503
+        },
+        {
+            "year": 1978,
+            "inflation": 7.591
+        },
+        {
+            "year": 1979,
+            "inflation": 11.348
+        },
+        {
+            "year": 1980,
+            "inflation": 13.499
+        },
+        {
+            "year": 1981,
+            "inflation": 10.315
+        },
+        {
+            "year": 1982,
+            "inflation": 6.16
+        },
+        {
+            "year": 1983,
+            "inflation": 3.212
+        },
+        {
+            "year": 1984,
+            "inflation": 4.317
+        },
+        {
+            "year": 1985,
+            "inflation": 3.561
+        },
+        {
+            "year": 1986,
+            "inflation": 1.858
+        },
+        {
+            "year": 1987,
+            "inflation": 3.649
+        },
+        {
+            "year": 1988,
+            "inflation": 4.136
+        },
+        {
+            "year": 1989,
+            "inflation": 4.818
+        },
+        {
+            "year": 1990,
+            "inflation": 5.403
+        },
+        {
+            "year": 1991,
+            "inflation": 4.207
+        },
+        {
+            "year": 1992,
+            "inflation": 3.01
+        },
+        {
+            "year": 1993,
+            "inflation": 2.993
+        },
+        {
+            "year": 1994,
+            "inflation": 2.559
+        },
+        {
+            "year": 1995,
+            "inflation": 2.834
+        },
+        {
+            "year": 1996,
+            "inflation": 2.953
+        },
+        {
+            "year": 1997,
+            "inflation": 2.293
+        },
+        {
+            "year": 1998,
+            "inflation": 1.558
+        },
+        {
+            "year": 1999,
+            "inflation": 2.207
+        },
+        {
+            "year": 2000,
+            "inflation": 3.361
+        },
+        {
+            "year": 2001,
+            "inflation": 2.845
+        },
+        {
+            "year": 2002,
+            "inflation": 1.58
+        },
+        {
+            "year": 2003,
+            "inflation": 2.279
+        },
+        {
+            "year": 2004,
+            "inflation": 2.662
+        },
+        {
+            "year": 2005,
+            "inflation": 3.388
+        },
+        {
+            "year": 2006,
+            "inflation": 3.225
+        },
+        {
+            "year": 2007,
+            "inflation": 2.847
+        },
+        {
+            "year": 2008,
+            "inflation": 3.839
+        },
+        {
+            "year": 2009,
+            "inflation": -0.356
+        },
+        {
+            "year": 2010,
+            "inflation": 1.64
+        },
+        {
+            "year": 2011,
+            "inflation": 3.156
+        },
+        {
+            "year": 2012,
+            "inflation": 2.069
+        },
+        {
+            "year": 2013,
+            "inflation": 1.464
+        },
+        {
+            "year": 2014,
+            "inflation": 1.622
+        },
+        {
+            "year": 2015,
+            "inflation": 0.118
+        },
+        {
+            "year": 2016,
+            "inflation": 1.261
+        },
+        {
+            "year": 2017,
+            "inflation": 2.13
+        },
+        {
+            "year": 2018,
+            "inflation": 2.492
+        },
+        {
+            "year": 2019,
+            "inflation": 1.762
+        },
+        {
+            "year": 2020,
+            "inflation": 1.234
+        },
+        {
+            "year": 2021,
+            "inflation": 4.697
+        },
+        {
+            "year": 2022,
+            "inflation": 8.002
+        },
+        {
+            "year": 2023,
+            "inflation": 4.116
+        },
+        {
+            "year": 2024,
+            "inflation": 3.228
+        }
+    ]
+}

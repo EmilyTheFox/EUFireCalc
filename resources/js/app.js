@@ -21,52 +21,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
         });
     });
-
-    const lightIcon = document.getElementById("light-icon");
-    const darkIcon = document.getElementById("dark-icon");
-
-    // Check if dark mode is preferred
-    const darkModeMediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
-    let darkMode = darkModeMediaQuery.matches;
-
-    // Set dark-mode class on body if darkMode is true and pick icon
-    if (darkMode) {
-        lightIcon.setAttribute("display", "block");
-        darkIcon.setAttribute("display", "none");
-    } else {
-        lightIcon.setAttribute("display", "none");
-        darkIcon.setAttribute("display", "block");
-    }
-    
-    // Toggle dark mode on button click
-    function awoooooga() {
-        // Toggle darkMode variable
-        darkMode = !darkMode;
-
-        // Toggle dark-mode class on body
-        if (darkMode) {
-            document.documentElement.setAttribute('data-theme', 'dark')
-        } else {
-            document.documentElement.setAttribute('data-theme', 'light')
-        }
-
-        // Toggle light and dark icons
-        if (darkMode) {
-            lightIcon.setAttribute("display", "block");
-            darkIcon.setAttribute("display", "none");
-        } else {
-            lightIcon.setAttribute("display", "none");
-            darkIcon.setAttribute("display", "block");
-        }
-    }
-    
-    lightIcon.addEventListener('click', () => {
-        awoooooga();
-    });
-    darkIcon.addEventListener('click', () => {
-        awoooooga();
-    });
-
 });
 
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Taxes;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -19,7 +19,6 @@ use Illuminate\Database\Eloquent\Model;
 class TaxSystem extends Model
 {
     use HasFactory;
-
     protected $hidden = [
         "id",
         "created_at",
